@@ -1,5 +1,5 @@
 const Package = require('./package.json')
-console.log(`Ardent Authentication service v${Package.version} starting`)
+console.log(`Ardent Authentication v${Package.version} starting`)
 
 // Initalise default value for env vars before other imports
 console.log('Configuring environment …')
@@ -45,7 +45,8 @@ const router = require('./router')
 
   // Add route handlers
   router.get('/', (ctx) => { ctx.body = `Ardent Authentication v${Package.version}` })
-  router.get('/version', (ctx) => { ctx.body = { version: Package.version } })
+  router.get('/auth', (ctx) => { ctx.body = `Ardent Authentication v${Package.version}` })
+  router.get('/auth/version', (ctx) => { ctx.body = { version: Package.version } })
   app.use(router.routes())
 
   app.listen(ARDENT_AUTH_LOCAL_PORT)
