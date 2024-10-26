@@ -4,7 +4,9 @@ This is the authentication service for Ardent.
 
 Ardent provides trade and exploration data for the game [Elite Dangerous](https://www.elitedangerous.com/).
 
-For more information, please see:
+This service handles all requests that relate to or require some form of authentication or authorisation.
+
+More information about Ardent:
 
 * https://github.com/iaincollins/ardent-www
 * https://github.com/iaincollins/ardent-api
