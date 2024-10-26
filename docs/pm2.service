@@ -1,0 +1,29 @@
+# systemd configuration for pm2
+#
+# p2m handles starting and restarting the individual services (Auth, WWW, API
+# the Collector) and provides a simple management interface for them.
+#
+# It runs as the user `ardent` which is the same role account used for 
+# deployment, this allows the deployment pipeline to easily interact with pm2.
+[Unit]
+Description=PM2 process manager
+Documentation=https://pm2.keymetrics.io/
+After=network.target
+
+[Service]
+Type=forking
+User=ardent
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+Environment=PM2_HOME=/home/ardent/.pm2
+PIDFile=/home/ardent/.pm2/pm2.pid
+Restart=on-failure
+
+ExecStart=/usr/local/lib/node_modules/pm2/bin/pm2 resurrect
+ExecReload=/usr/local/lib/node_modules/pm2/bin/pm2 reload all
+ExecStop=/usr/local/lib/node_modules/pm2/bin/pm2 kill
+
+[Install]
+WantedBy=multi-user.target

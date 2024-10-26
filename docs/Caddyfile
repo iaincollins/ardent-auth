@@ -1,4 +1,5 @@
-# Simple configuration for Caddy (https://caddyserver.com/)
+# Simple configuration for Caddy (https://caddyserver.com)
+# Caddy acts a reverse proxy and handles dynamic SSL certificate generation
 ardent-industry.com,
 www.ardent-industry.com {
         reverse_proxy http://127.0.0.1:3000
