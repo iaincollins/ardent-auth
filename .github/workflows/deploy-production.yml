@@ -60,7 +60,6 @@ jobs:
         SCRIPT_AFTER: |
           cd "${{ vars.DEPLOY_DIR }}/${{ env.SERVICE_NAME }}-${{ env.GIT_SHA_SHORT}}"
           npm install --omit=dev 
-          npm run build
           cd ..
           mv "${{ vars.DEPLOY_DIR }}/${{ env.SERVICE_NAME }}" "${{ vars.DEPLOY_DIR }}/${{ env.SERVICE_NAME }}.tmp" || :
           mv "${{ vars.DEPLOY_DIR }}/${{ env.SERVICE_NAME }}-${{ env.GIT_SHA_SHORT}}" "${{ vars.DEPLOY_DIR }}/${{ env.SERVICE_NAME }}"

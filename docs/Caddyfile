@@ -1,0 +1,22 @@
+# Simple configuration for Caddy (https://caddyserver.com/)
+ardent-industry.com,
+www.ardent-industry.com {
+        reverse_proxy http://127.0.0.1:3000
+}
+
+api.ardent-industry.com {
+        rewrite * /api{uri}
+        reverse_proxy http://127.0.0.1:3001
+}
+
+auth.ardent-industry.com {
+        rewrite * /auth{uri}
+        reverse_proxy http://127.0.0.1:3003
+}
+
+downloads.ardent-industry.com {
+        file_server {
+                root /opt/backup/ardent-data
+                index index.html
+        }
+}
