@@ -1,10 +1,11 @@
-const { createJwt, verifyAndRefreshJwt } = require('../lib/jwt')
+const { createJwt } = require('../lib/jwt')
 const {
   generateCodeVerifierAndChallenge,
   generateUrlSafeBase64ByteString,
   secondsSinceEpoch
-} = require('../lib/auth-utils')
+} = require('../lib/utils/auth')
 const formData = require('../lib/form-data')
+const { saveTokens } = require('../lib/cmdr')
 
 const {
   AUTH_CLIENT_ID,
@@ -12,7 +13,8 @@ const {
   AUTH_COOKIE_DOMAIN,
   AUTH_SIGNED_IN_URL,
   AUTH_SIGNED_OUT_URL,
-  AUTH_ERROR_URL
+  AUTH_ERROR_URL,
+  FRONTIER_API_BASE_URL
 } = require('../lib/consts')
 
 const MAX_JWT_AGE_SECONDS = 86400 * 25 // Fdev sessions valid for 25 days max
@@ -62,43 +64,37 @@ module.exports = (router) => {
       })
       const responsePayload = await response.json()
 
-      if (!responsePayload?.token_type ||
-        !responsePayload?.access_token ||
-        !responsePayload?.expires_in ||
-        !responsePayload?.refresh_token) {
-        console.error('Frontier API returned unexpected response to Sign In request', responsePayload)
-        throw new Error('Frontier API returned unexpected response to Sign In request')
-      }
+      const accessToken = responsePayload.access_token
+      const refreshToken = responsePayload.refresh_token
+      const expiresAt = new Date((secondsSinceEpoch() + responsePayload.expires_in) * 1000).toISOString()
 
-      // Create JWT to store tokens
-      const jwt = createJwt({
-        tokenType: responsePayload.token_type,
-        accessToken: responsePayload.access_token,
-        accessTokenExpires: new Date((secondsSinceEpoch() + responsePayload.expires_in) * 1000).toISOString(),
-        refreshToken: responsePayload.refresh_token
-      })
+      // Use Access Token to get Cmdr ID (required to sign in)
+      const frontierApiResponse = await fetch(
+        `${FRONTIER_API_BASE_URL}/profile`,
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      )
+      const profile = await frontierApiResponse.json()
+
+      const cmdrId = profile.commander.id
+      const cmdrName = profile.commander.name
+
+      // Save Commander ID and tokens to database
+      //
+      // This will, by design, overwite older credentials associated
+      // with the same Commander ID, as Frontier's Oauth implementation
+      // does not seem to fully support an account maintaining
+      // concurrent sessions with the same third party Oauth client.
+      saveTokens(cmdrId, accessToken, refreshToken, expiresAt)
+
+      // Create JWT which will can be used to look up tokens
+      // from the database to make API requests in future
+      const jwt = createJwt({ sub: cmdrId, name: cmdrName })
 
       ctx.cookies.set('auth.jwt', jwt, JWT_COOKIE_OPTIONS)
 
       ctx.redirect(AUTH_SIGNED_IN_URL)
     } catch (e) {
       ctx.redirect(`${AUTH_ERROR_URL}?error=${encodeURIComponent(e?.toString())}`)
-    }
-  })
-
-  router.get('/auth/token', async (ctx, next) => {
-    try {
-      const jwtPayload = await verifyAndRefreshJwt(ctx)
-      ctx.body = {
-        accessToken: jwtPayload.accessToken,
-        expires: jwtPayload.accessTokenExpires
-      }
-    } catch (e) {
-      ctx.status = 400
-      ctx.body = {
-        error: 'Failed to get Frontier API Access Token',
-        message: e?.toString()
-      }
     }
   })
 

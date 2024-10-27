@@ -13,6 +13,7 @@ const process = require('process')
 const Koa = require('koa')
 const koaBodyParser = require('koa-bodyparser')
 const KeyGrip = require('keygrip')
+const cron = require('node-cron')
 
 console.log('Loading libraries …')
 const router = require('./router')
@@ -48,6 +49,14 @@ const router = require('./router')
   router.get('/auth', (ctx) => { ctx.body = `Ardent Authentication v${Package.version}` })
   router.get('/auth/version', (ctx) => { ctx.body = { version: Package.version } })
   app.use(router.routes())
+
+  // Every 15 refresh check for any tokens that expire "soon" and premtively refresh them
+  cron.schedule('0 */15 * * * *', () => {
+    // TODO Get all tokens expiring in next hour, then rotate them
+    // Rotating tokens in this way allows users to sign to the site in from multiple devices
+    // (something the FDev API doesn't seem to allow) and supports mechanics like sending
+    // opt-in alerts to users in response to system status changes or market trades.
+  })
 
   app.listen(ARDENT_AUTH_LOCAL_PORT)
   console.log('Ardent Authentication service started!')
