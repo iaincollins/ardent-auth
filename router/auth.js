@@ -10,16 +10,13 @@ const { saveTokens } = require('../lib/cmdr')
 const {
   AUTH_CLIENT_ID,
   AUTH_CALLBACK_URL,
-  AUTH_COOKIE_DOMAIN,
   AUTH_SIGNED_IN_URL,
   AUTH_SIGNED_OUT_URL,
   AUTH_ERROR_URL,
+  COOKIE_DEFAULT_OPTIONS,
+  JWT_COOKIE_OPTIONS,
   FRONTIER_API_BASE_URL
 } = require('../lib/consts')
-
-const MAX_JWT_AGE_SECONDS = 86400 * 25 // Fdev sessions valid for 25 days max
-const COOKIE_DEFAULT_OPTIONS = { httpOnly: true, domain: AUTH_COOKIE_DOMAIN, signed: true }
-const JWT_COOKIE_OPTIONS = { ...COOKIE_DEFAULT_OPTIONS, maxAge: MAX_JWT_AGE_SECONDS * 1000 }
 
 module.exports = (router) => {
   router.get('/auth/signin', async (ctx, next) => {

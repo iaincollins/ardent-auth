@@ -17,6 +17,7 @@ const cron = require('node-cron')
 
 console.log('Loading libraries …')
 const router = require('./router')
+const cronTasks = require('./lib/cron-tasks')
 
 ;(async () => {
   // Start web service
@@ -51,11 +52,10 @@ const router = require('./router')
   app.use(router.routes())
 
   // Every 15 refresh check for any tokens that expire "soon" and premtively refresh them
+  // (and also at startup, in case there has been any downtime).
+  cronTasks.rotateAccessTokens()
   cron.schedule('0 */15 * * * *', () => {
-    // TODO Get all tokens expiring in next hour, then rotate them
-    // Rotating tokens in this way allows users to sign to the site in from multiple devices
-    // (something the FDev API doesn't seem to allow) and supports mechanics like sending
-    // opt-in alerts to users in response to system status changes or market trades.
+    cronTasks.rotateAccessTokens()
   })
 
   app.listen(ARDENT_AUTH_LOCAL_PORT)
