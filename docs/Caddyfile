@@ -1,6 +1,6 @@
 # Simple configuration for Caddy (https://caddyserver.com)
 # Caddy acts a reverse proxy and handles dynamic SSL certificate generation
-# Config changes can be applied by reloading using `systemctl reload caddy`
+# Config changes can be applied by reloading using `systemctl restart caddy`
 {
         log {
                 output file /var/log/caddy/access.log
@@ -10,7 +10,7 @@
 (logging) {
         log {
                 output file /var/log/caddy/{args[0]}.access.log
-                format json
+                format console
         }
 }
 
@@ -46,7 +46,7 @@ downloads.ardent-industry.com {
 }
 
 :80, :443 {
-        import logging catchall
+        import logging default
         respond "Access denied" 403 {
                 close
         }
