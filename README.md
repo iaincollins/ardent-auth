@@ -6,7 +6,7 @@ Ardent provides trade and exploration data for the game [Elite Dangerous](https:
 
 This service handles all requests that relate to or require some form of authentication or authorisation.
 
-More information about Ardent:
+For more information please also see the following repositories:
 
 * https://github.com/iaincollins/ardent-www
 * https://github.com/iaincollins/ardent-api
