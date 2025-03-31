@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "cross-env NODE_ENV=development node index.js",
+    "dev:local": "cross-env NODE_ENV=development ARDENT_WWW_BASE_URL=http://localhost:3000 ARDENT_AUTH_BASE_URL=http://localhost:3003/auth node index.js",
     "lint": "npx standard --fix"
   },
   "repository": {

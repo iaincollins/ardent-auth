@@ -41,7 +41,10 @@ const cronTasks = require('./lib/cron-tasks')
     ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
     ctx.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
 
-    ctx.cookies.secure = true // Enables secure cookies when behind HTTP proxy
+    if (process.env.NODE_ENV !== 'development') {
+      // Enable secure cookies when behind HTTP proxy in production
+      ctx.cookies.secure = true 
+    }
     return next()
   })
 
