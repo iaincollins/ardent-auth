@@ -15,14 +15,19 @@
         }
 }
 
+# Any of the domains can be used for the API endpoints but the website is
+# configured to use a single canonical domain to help avoid confusion
 ardentinsight.com,
-ardent-insight.com,
 ardentindustry.com,
 ardent-industry.com,
 www.ardentinsight.com,
 www.ardent-insight.com,
 www.ardentindustry.com,
 www.ardent-industry.com {
+        redir https://ardent-insight.com{uri}
+}
+
+ardent-insight.com {
         import logging www.ardent-insight.com
         reverse_proxy http://127.0.0.1:3000
 }
