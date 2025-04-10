@@ -1,6 +1,10 @@
+# /etc/systemd/system/caddy.service
 # systemd configuration for Caddy
 #
-# Note The services that Caddy proxies are managed by pm2
+# sudo systemctl daemon-reload
+# sudo systemctl enable --now caddy
+#
+# Note: The services that Caddy proxies are managed by pm2
 [Unit]
 Description=Caddy
 Documentation=https://caddyserver.com/docs/
