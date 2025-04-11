@@ -1,10 +1,19 @@
 # /etc/systemd/system/caddy.service
 # systemd configuration for Caddy
 #
-# sudo systemctl daemon-reload
-# sudo systemctl enable --now caddy
+# Example Caddy configuration:
 #
-# Note: The services that Caddy proxies are managed by pm2
+#   cp Caddyfile /etc/caddy/Caddyfile
+#   cp caddy.service /etc/systemd/system/caddy.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now caddy
+#
+# Note: The services that Caddy proxies are managed by pm2:
+#
+#   npm -g install pm2
+#   <configure and install services and save pm2>
+#   pm2 startup
+
 [Unit]
 Description=Caddy
 Documentation=https://caddyserver.com/docs/

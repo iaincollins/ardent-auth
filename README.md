@@ -1,8 +1,8 @@
 # Ardent Authentication Service
 
-This is the authentication service for Ardent.
+This is the authentication service for Ardent Insight.
 
-Ardent provides trade and exploration data for the game [Elite Dangerous](https://www.elitedangerous.com/).
+Ardent Insight provides trade and exploration data for the game [Elite Dangerous](https://www.elitedangerous.com/).
 
 This service handles all requests that relate to or require some form of authentication or authorisation.
 

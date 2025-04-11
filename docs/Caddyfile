@@ -1,12 +1,15 @@
 # Contents of /etc/caddy/Caddyfile
 #
-# Simple configuration for Caddy (https://caddyserver.com)
+# Simple configuration for Caddy (https://caddyserver.com) web server
 # Caddy acts a reverse proxy and handles dynamic SSL certificate generation.
 #
-# Test changes: caddy validate --config /etc/caddy/Caddyfile
-# Apply changes: sudo systemctl restart caddy
+# Test changes:
+#		caddy validate --config /etc/caddy/Caddyfile
 #
-# Note: aAny of the domains can be used for the API endpoints but the website 
+# Apply changes:
+#		sudo systemctl restart caddy
+#
+# Note: Any of the domains can be used for the API endpoints but the website 
 # is configured to use a single canonical domain to help avoid confusion.
 
 ardentinsight.com,
