@@ -23,15 +23,15 @@ www.ardent-industry.com {
 }
 
 ardent-insight.com {
-	reverse_proxy http://127.0.0.1:3000
-}
-
-www.beta.ardent-insight.com {
-	redir https://beta.ardent-insight.com{uri}
+	reverse_proxy http://127.0.0.1:3000 {
+		lb_try_duration 10s
+	}
 }
 
 beta.ardent-insight.com {
-	reverse_proxy http://127.0.0.1:3000
+	reverse_proxy http://127.0.0.1:3000 {
+		lb_try_duration 10s
+	}
 }
 
 api.beta.ardent-insight.com,
@@ -40,7 +40,9 @@ api.ardent-insight.com,
 api.ardentindustry.com,
 api.ardent-industry.com {
 	rewrite * /api{uri}
-	reverse_proxy http://127.0.0.1:3001
+	reverse_proxy http://127.0.0.1:3001 {
+		lb_try_duration 10s
+	}
 }
 
 auth.beta.ardent-insight.com,
@@ -49,7 +51,9 @@ auth.ardent-insight.com,
 auth.ardentindustry.com,
 auth.ardent-industry.com {
 	rewrite * /auth{uri}
-	reverse_proxy http://127.0.0.1:3003
+	reverse_proxy http://127.0.0.1:3003 {
+		lb_try_duration 10s
+	}
 }
 
 downloads.beta.ardent-insight.com,
