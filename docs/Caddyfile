@@ -62,7 +62,7 @@ downloads.ardent-insight.com,
 downloads.ardentindustry.com,
 downloads.ardent-industry.com {
 	file_server {
-		root /opt/backup/ardent-data
+		root /opt/ardent/ardent-downloads
 		index index.html
 	}
 }
