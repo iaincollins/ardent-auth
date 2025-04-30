@@ -19,7 +19,7 @@ www.ardentinsight.com,
 www.ardent-insight.com,
 www.ardentindustry.com,
 www.ardent-industry.com {
-	redir https://ardent-insight.com{uri}
+	redir https://ardent-insight.com{uri} permanent 
 }
 
 ardent-insight.com {
