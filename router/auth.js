@@ -72,7 +72,8 @@ module.exports = (router) => {
       )
       const profile = await frontierApiResponse.json()
 
-      const cmdrId = profile.commander.id
+      // Ensure cmdrId is always treated as a string and not a number
+      const cmdrId = String(profile.commander.id)
       const cmdrName = profile.commander.name
 
       // Save Commander ID and tokens to database

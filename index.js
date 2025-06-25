@@ -43,7 +43,7 @@ const cronTasks = require('./lib/cron-tasks')
 
     if (process.env.NODE_ENV !== 'development') {
       // Enable secure cookies when behind HTTP proxy in production
-      ctx.cookies.secure = true 
+      ctx.cookies.secure = true
     }
     return next()
   })
