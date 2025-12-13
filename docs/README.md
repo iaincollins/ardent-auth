@@ -1,11 +1,11 @@
 # Documentation
 
 This directory contains documentation and confguration files relevant to all 
-Ardent services, including the Authentication service. This documentation is  
+Ardent services, including the Authentication service. This documentation is 
 not specifically related to authentication, this is just a home for it until 
 there is somewhere else for it.
 
-This should give some idea of how the stack is run in production - e.g. how the  
+This should give some idea of how the stack is run in production - e.g. how the 
 proxy server works, how the services are managed during deployment and how they 
 recover in the event of a failure or system restart.
 
@@ -30,17 +30,17 @@ to deploy changes over SSH. There is no downtime during  deployments, as the
 services are swapped out gracefully.
 
 Deploying a new version of the API or the Auth service takes less than 30 
-seconds while deploying a new version of website typically takes around 90  
+seconds while deploying a new version of website typically takes around 90 
 seconds (as there is more work required to build the site). 
 
 When a new release of a service is pushed to the main branch on GitHub, a 
 GitHub action connects to the server with a deployment account and installs and 
 builds each new release, then briefly stops the existing service, replaces it 
-and starts the new version
+and starts the new version.
 
 Because actually swapping out a service only involves swapping a pointer on 
-disk to the release, the change over only takes a second or so. Caddy is 
-configured to hold requests during that time, so all an end user might 
+disk to the release, the change over is very quick. Caddy is 
+configured to hold requests during the switch over, so all an end user might 
 experience is that a request takes a second longer; requests don't fail as 
 Caddy holds them all during the second or so it takes to switch over.
 
