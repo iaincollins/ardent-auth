@@ -12,6 +12,18 @@ Related repositories:
 * https://github.com/iaincollins/ardent-api
 * https://github.com/iaincollins/ardent-collector
 
+## Credits
+
+_This software would not be possible without work from dozens of enthusiasts 
+and hundreds of open source contributors._
+
+Special thanks to Elite Dangerous Community Developers for their public 
+documentation of the Frontier CAPI and their experiences using the OAuth API, 
+and for assistance with testing and debugging provided on the EDCD Discord.
+
+Thank you also to Frontier for making it possible for third party developers to 
+leverage the public APIs provided.
+
 ## Legal
 
 Copyright Iain Collins, 2024.
