@@ -19,9 +19,21 @@ databases, also runs on the server but does not run on a public facing port.
 ## PM2
 
 PM2, a process monitor, is installed via NPM with `npm i pm2 -g` and is used by 
-the GitHub Actions that handle deployment to stop/start services and is also 
-configured to run any services started this way at startup, making recovery 
-from a restart automatic.
+the GitHub Actions that handle deployment to stop/start services.
+
+### Configuration for systemd
+
+The systemd script for pm2 can automatically start services on system start.
+
+Run `pm2 startup systemd` and follow instructions to install and enable the 
+systemd script so that services start up automatically after a reboot.
+
+In production this installs into  `/etc/systemd/system/pm2-ardent.service`
+and is automatically enabled using `systemctl` (`systemctl enable pm2-ardent`).
+
+Note: Unfortunately after a system upgrade this may not work, so starting
+each service again manually - and reinstalling the script for systemd - may be 
+required after a system upgrade.
 
 ## Deployment
 
