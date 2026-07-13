@@ -1,6 +1,6 @@
 {
   "name": "ardent-auth",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Ardent Authentication service",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/iaincollins/ardent-auth#readme",
   "dependencies": {
-    "better-sqlite3": "^12.5.0",
+    "better-sqlite3": "^12.11.1",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "jsonwebtoken": "^9.0.2",
