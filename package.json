@@ -1,6 +1,6 @@
 {
   "name": "ardent-auth",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Ardent Authentication service",
   "main": "index.js",
   "scripts": {
